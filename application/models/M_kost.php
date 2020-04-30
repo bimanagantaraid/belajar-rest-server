@@ -1,11 +1,9 @@
 <?php 
 
-    class M_query extends CI_Model
-    {
-
-        //fungsi tampil data kost semua dan by id
-        public function get_kost($idkost = null){
-            if($idkost === null){
+    class M_kost extends CI_Model{
+        
+        public function getKost($idkost=null){
+            if($idkost===null){
                 return $this->db->get('kost')->result();
             }else{
                 return $this->db->where('idkost',$idkost)
@@ -13,23 +11,19 @@
             }
         }
 
-        //fungsi tambah data kost (CRUD)
-        public function insert_kost($table,$data){
+        public function insertKost($table,$data){
             $this->db->insert($table,$data);
             return $this->db->affected_rows();
         }
 
-        //fungsi update data kost (CRUD)
-        public function update_kost($where, $data)
-        {
-            $this->db->where('idkost',$where);
+        public function editKost($idkost,$data){
+            $this->db->where('idkost',$idkost);
             $this->db->update('kost',$data);
         }
 
-        //fungsi delete data kost (CRUD)
-        public function delete_kost($idkost)
-        {
-            $this->db->delete('kost',['idkost'=>$idkost]);
+        public function deleteKost($idkost){
+            $this->db->where('idkost',$idkost);
+            $this->db->delete('kost');
             return $this->db->affected_rows();
         }
 
@@ -54,4 +48,7 @@
                 ->get()->result();
             }
         }
+
     }
+
+?>
